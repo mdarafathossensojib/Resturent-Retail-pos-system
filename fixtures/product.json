@@ -1,0 +1,802 @@
+[
+    {
+        "model": "product.product",
+        "pk": 1,
+        "fields": {
+            "category": 1,
+            "name": "Classic Beef Burger",
+            "sku": "BUR-001",
+            "barcode": "100001",
+            "cost_price": "180.00",
+            "selling_price": "350.00",
+            "stock": 100,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 2,
+        "fields": {
+            "category": 1,
+            "name": "Chicken Burger",
+            "sku": "BUR-002",
+            "barcode": "100002",
+            "cost_price": "150.00",
+            "selling_price": "300.00",
+            "stock": 120,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 3,
+        "fields": {
+            "category": 1,
+            "name": "Double Beef Burger",
+            "sku": "BUR-003",
+            "barcode": "100003",
+            "cost_price": "200.00",
+            "selling_price": "400.00",
+            "stock": 80,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 4,
+        "fields": {
+            "category": 1,
+            "name": "Cheese Burger",
+            "sku": "BUR-004",
+            "barcode": "100004",
+            "cost_price": "160.00",
+            "selling_price": "320.00",
+            "stock": 100,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 5,
+        "fields": {
+            "category": 1,
+            "name": "BBQ Burger",
+            "sku": "BUR-005",
+            "barcode": "100005",
+            "cost_price": "170.00",
+            "selling_price": "340.00",
+            "stock": 110,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 6,
+        "fields": {
+            "category": 2,
+            "name": "Margherita Pizza",
+            "sku": "PIZ-001",
+            "barcode": "200001",
+            "cost_price": "350.00",
+            "selling_price": "700.00",
+            "stock": 50,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 7,
+        "fields": {
+            "category": 2,
+            "name": "Pepperoni Pizza",
+            "sku": "PIZ-002",
+            "barcode": "200002",
+            "cost_price": "400.00",
+            "selling_price": "850.00",
+            "stock": 40,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 8,
+        "fields": {
+            "category": 2,
+            "name": "BBQ Chicken Pizza",
+            "sku": "PIZ-003",
+            "barcode": "200003",
+            "cost_price": "300.00",
+            "selling_price": "500.00",
+            "stock": 50,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 9,
+        "fields": {
+            "category": 2,
+            "name": "Veggie Pizza",
+            "sku": "PIZ-004",
+            "barcode": "200004",
+            "cost_price": "350.00",
+            "selling_price": "600.00",
+            "stock": 40,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 10,
+        "fields": {
+            "category": 2,
+            "name": "Four Cheese Pizza",
+            "sku": "PIZ-005",
+            "barcode": "200005",
+            "cost_price": "400.00",
+            "selling_price": "850.00",
+            "stock": 40,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 11,
+        "fields": {
+            "category": 3,
+            "name": "Coca Cola 500ml",
+            "sku": "DRK-001",
+            "barcode": "300001",
+            "cost_price": "25.00",
+            "selling_price": "50.00",
+            "stock": 300,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 12,
+        "fields": {
+            "category": 3,
+            "name": "Sprite 500ml",
+            "sku": "DRK-002",
+            "barcode": "300002",
+            "cost_price": "25.00",
+            "selling_price": "50.00",
+            "stock": 250,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 13,
+        "fields": {
+            "category": 3,
+            "name": "Speed 250ml",
+            "sku": "DRK-003",
+            "barcode": "300003",
+            "cost_price": "25.00",
+            "selling_price": "50.00",
+            "stock": 250,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 14,
+        "fields": {
+            "category": 3,
+            "name": "Mirinda 500ml",
+            "sku": "DRK-004",
+            "barcode": "300004",
+            "cost_price": "25.00",
+            "selling_price": "50.00",
+            "stock": 250,
+            "low_stock_threshold": 10,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 15,
+        "fields": {
+            "category": 4,
+            "name": "Chocolate Lava Cake",
+            "sku": "DES-001",
+            "barcode": "400001",
+            "cost_price": "80.00",
+            "selling_price": "180.00",
+            "stock": 60,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 16,
+        "fields": {
+            "category": 4,
+            "name": "Vanilla Ice Cream",
+            "sku": "DES-002",
+            "barcode": "400002",
+            "cost_price": "50.00",
+            "selling_price": "120.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 17,
+        "fields": {
+            "category": 4,
+            "name": "Brownie",
+            "sku": "DES-003",
+            "barcode": "400003",
+            "cost_price": "50.00",
+            "selling_price": "120.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 18,
+        "fields": {
+            "category": 4,
+            "name": "Cheesecake",
+            "sku": "DES-004",
+            "barcode": "400004",
+            "cost_price": "50.00",
+            "selling_price": "120.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 19,
+        "fields": {
+            "category": 4,
+            "name": "Tiramisu",
+            "sku": "DES-005",
+            "barcode": "400005",
+            "cost_price": "50.00",
+            "selling_price": "120.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 20,
+        "fields": {
+            "category": 5,
+            "name": "Burger Combo Meal",
+            "sku": "COM-001",
+            "barcode": "500001",
+            "cost_price": "250.00",
+            "selling_price": "499.00",
+            "stock": 70,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 21,
+        "fields": {
+            "category": 5,
+            "name": "Pizza Combo Meal",
+            "sku": "COM-002",
+            "barcode": "500002",
+            "cost_price": "450.00",
+            "selling_price": "899.00",
+            "stock": 40,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 22,
+        "fields": {
+            "category": 5,
+            "name": "Family Combo",
+            "sku": "COM-003",
+            "barcode": "500003",
+            "cost_price": "450.00",
+            "selling_price": "899.00",
+            "stock": 40,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 23,
+        "fields": {
+            "category": 5,
+            "name": "Couple Combo",
+            "sku": "COM-004",
+            "barcode": "500004",
+            "cost_price": "550.00",
+            "selling_price": "899.00",
+            "stock": 40,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 24,
+        "fields": {
+            "category": 5,
+            "name": "Kids Combo",
+            "sku": "COM-005",
+            "barcode": "500005",
+            "cost_price": "350.00",
+            "selling_price": "699.00",
+            "stock": 40,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 25,
+        "fields": {
+            "category": 6,
+            "name": "Chicken Alfredo Pasta",
+            "sku": "PAS-001",
+            "barcode": "600001",
+            "cost_price": "50.00",
+            "selling_price": "125.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 26,
+        "fields": {
+            "category": 6,
+            "name": "Spaghetti Bolognese",
+            "sku": "PAS-002",
+            "barcode": "600002",
+            "cost_price": "50.00",
+            "selling_price": "120.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 27,
+        "fields": {
+            "category": 6,
+            "name": "Creamy Mushroom Pasta",
+            "sku": "PAS-003",
+            "barcode": "600003",
+            "cost_price": "60.00",
+            "selling_price": "125.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 28,
+        "fields": {
+            "category": 6,
+            "name": "Penne Arrabbiata",
+            "sku": "PAS-004",
+            "barcode": "600004",
+            "cost_price": "50.00",
+            "selling_price": "120.00",
+            "stock": 80,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 29,
+        "fields": {
+            "category": 6,
+            "name": "Seafood Pasta",
+            "sku": "PAS-005",
+            "barcode": "600005",
+            "cost_price": "60.00",
+            "selling_price": "130.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 30,
+        "fields": {
+            "category": 7,
+            "name": "French Fries",
+            "sku": "APP-001",
+            "barcode": "700001",
+            "cost_price": "60.00",
+            "selling_price": "130.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 31,
+        "fields": {
+            "category": 7,
+            "name": "Chicken Nuggets",
+            "sku": "APP-002",
+            "barcode": "700002",
+            "cost_price": "80.00",
+            "selling_price": "130.00",
+            "stock": 95,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 32,
+        "fields": {
+            "category": 7,
+            "name": "Onion Rings",
+            "sku": "APP-003",
+            "barcode": "700003",
+            "cost_price": "60.00",
+            "selling_price": "130.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 33,
+        "fields": {
+            "category": 7,
+            "name": "Garlic Bread",
+            "sku": "APP-004",
+            "barcode": "700004",
+            "cost_price": "60.00",
+            "selling_price": "130.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 34,
+        "fields": {
+            "category": 7,
+            "name": "Chicken Wings",
+            "sku": "APP-005",
+            "barcode": "700005",
+            "cost_price": "60.00",
+            "selling_price": "130.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 35,
+        "fields": {
+            "category": 8,
+            "name": "Espresso",
+            "sku": "COFF-001",
+            "barcode": "800001",
+            "cost_price": "30.00",
+            "selling_price": "70.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 36,
+        "fields": {
+            "category": 8,
+            "name": "Americano",
+            "sku": "COFF-002",
+            "barcode": "800002",
+            "cost_price": "30.00",
+            "selling_price": "70.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 37,
+        "fields": {
+            "category": 8,
+            "name": "Cappuccino",
+            "sku": "COFF-003",
+            "barcode": "800003",
+            "cost_price": "30.00",
+            "selling_price": "70.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 38,
+        "fields": {
+            "category": 8,
+            "name": "Latte",
+            "sku": "COFF-004",
+            "barcode": "800004",
+            "cost_price": "30.00",
+            "selling_price": "70.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 39,
+        "fields": {
+            "category": 8,
+            "name": "Mocha",
+            "sku": "COFF-005",
+            "barcode": "800005",
+            "cost_price": "30.00",
+            "selling_price": "70.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 40,
+        "fields": {
+            "category": 9,
+            "name": "Black Tea",
+            "sku": "TEA-001",
+            "barcode": "900001",
+            "cost_price": "15.00",
+            "selling_price": "50.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 41,
+        "fields": {
+            "category": 9,
+            "name": "Green Tea",
+            "sku": "TEA-002",
+            "barcode": "900002",
+            "cost_price": "15.00",
+            "selling_price": "50.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 42,
+        "fields": {
+            "category": 9,
+            "name": "Masala Tea",
+            "sku": "TEA-003",
+            "barcode": "900003",
+            "cost_price": "15.00",
+            "selling_price": "50.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 43,
+        "fields": {
+            "category": 9,
+            "name": "Lemon Tea",
+            "sku": "TEA-004",
+            "barcode": "900004",
+            "cost_price": "15.00",
+            "selling_price": "50.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 44,
+        "fields": {
+            "category": 9,
+            "name": "Milk Tea",
+            "sku": "TEA-005",
+            "barcode": "900005",
+            "cost_price": "15.00",
+            "selling_price": "50.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 45,
+        "fields": {
+            "category": 10,
+            "name": "Orange Juice",
+            "sku": "JUICE-001",
+            "barcode": "1000001",
+            "cost_price": "20.00",
+            "selling_price": "60.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 46,
+        "fields": {
+            "category": 10,
+            "name": "Mango Juice",
+            "sku": "JUICE-002",
+            "barcode": "1000002",
+            "cost_price": "20.00",
+            "selling_price": "60.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 47,
+        "fields": {
+            "category": 10,
+            "name": "Apple Juice",
+            "sku": "JUICE-003",
+            "barcode": "1000003",
+            "cost_price": "20.00",
+            "selling_price": "60.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 48,
+        "fields": {
+            "category": 10,
+            "name": "Lemon Juice",
+            "sku": "JUICE-004",
+            "barcode": "1000004",
+            "cost_price": "20.00",
+            "selling_price": "60.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 49,
+        "fields": {
+            "category": 10,
+            "name": "Mixed Fruit Juice",
+            "sku": "JUICE-005",
+            "barcode": "1000005",
+            "cost_price": "20.00",
+            "selling_price": "60.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 50,
+        "fields": {
+            "category": 10,
+            "name": "Pinapple Juice",
+            "sku": "JUICE-006",
+            "barcode": "1000006",
+            "cost_price": "20.00",
+            "selling_price": "60.00",
+            "stock": 90,
+            "low_stock_threshold": 5,
+            "created_at" : "2024-06-01T10:00:00Z",
+            "updated_at" : "2024-06-01T10:00:00Z"
+        }
+    }
+]
