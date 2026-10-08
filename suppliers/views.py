@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from suppliers.models import Supplier
+from suppliers.serializers import SupplierSerializer
+
+
+class SupplierViewSet(ModelViewSet):
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
+    permission_classes = [IsAuthenticated]

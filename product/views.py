@@ -1,3 +1,17 @@
-from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from product.models import Category, Product
+from product.serializers import CategorySerializer, ProductSerializer
+
+
+class CategoryViewSet(ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
+
+
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.select_related('category')
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
