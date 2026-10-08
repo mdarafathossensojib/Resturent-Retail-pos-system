@@ -25,4 +25,6 @@ router.register('payments', PaymentViewSet, basename='payment')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 ]

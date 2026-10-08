@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -156,64 +157,64 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 #     secure=True
 # )
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
-# REST_FRAMEWORK = {
-#     'COERCE_DECIMAL_TO_STRING' : False,
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ),
-# }
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING' : False,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
-# SIMPLE_JWT = {
-#    'AUTH_HEADER_TYPES': ('JWT',),
-#    'ACCESS_TOKEN_LIFETIME' : timedelta(days=5)
-# }
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+   'ACCESS_TOKEN_LIFETIME' : timedelta(days=5)
+}
 
-# DJOSER = {
-#     'EMAIL_FRONTEND_PROTOCOL': config('FRONTEND_PROTOCOL'),
-#     'EMAIL_FRONTEND_DOMAIN': config('FRONTEND_DOMAIN'),
-#     'EMAIL_FRONTEND_SITE_NAME': 'ClassicFitness',
-#     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-#     'ACTIVATION_URL': 'activate/{uid}/{token}',
-#     'SEND_ACTIVATION_EMAIL': True,
-#     'SERIALIZERS' : {
-#         'user_create' : 'users.serializers.UserCreateSerializer',
-#         'current_user': 'users.serializers.UserViewSerializer',
-#         'user': 'users.serializers.UserViewSerializer',
-#     },
-# }
+DJOSER = {
+    'EMAIL_FRONTEND_PROTOCOL': config('FRONTEND_PROTOCOL'),
+    'EMAIL_FRONTEND_DOMAIN': config('FRONTEND_DOMAIN'),
+    'EMAIL_FRONTEND_SITE_NAME': 'Resturant POS',
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS' : {
+        'user_create' : 'users.serializers.UserCreateSerializer',
+        'current_user': 'users.serializers.UserViewSerializer',
+        'user': 'users.serializers.UserViewSerializer',
+    },
+}
 
-# SWAGGER_SETTINGS = {
-#    'SECURITY_DEFINITIONS': {
-#       'Bearer': {
-#             'type': 'apiKey',
-#             'name': 'Authorization',
-#             'in': 'header',
-#             'description': 'Enter you JWT token in the format : `JWT <Your_token>`'
-#       }
-#    }
-# }
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Enter you JWT token in the format : `JWT <Your_token>`'
+      }
+   }
+}
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_PORT = config('EMAIL_PORT', cast=int)
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-# BACKEND_URL = config('BACKEND_URL')
-# FRONTEND_URL = config('FRONTEND_URL')
+BACKEND_URL = config('BACKEND_URL')
+FRONTEND_URL = config('FRONTEND_URL')
 
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+# MAILERS = {
+#     'default': {
+#         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+#     },
+# }
 
