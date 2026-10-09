@@ -7,6 +7,19 @@ from cloudinary.models import CloudinaryField
 
 class User(AbstractUser):
     username = None
+
+    ROLE_CHOICES = (
+        ("admin", "Admin"),
+        ("manager", "Manager"),
+        ("cashier", "Cashier"),
+    )
+
+    role = models.CharField(
+        max_length=10,
+        choices=ROLE_CHOICES,
+        default="cashier",
+    )
+    
     email = models.EmailField(unique=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
