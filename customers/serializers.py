@@ -15,4 +15,4 @@ class CustomerSerializer(serializers.ModelSerializer):
             'loyalty_points',
             'created_at',
         ]
-        read_only_fields = ['id', 'created_at']
+        read_only_fields = ['id', "loyalty_points", 'created_at']
