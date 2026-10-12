@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from product.models import Category, Product
 from product.serializers import CategorySerializer, ProductSerializer
-from users.permissions import IsAdminOrManagerOrReadOnly
+from product.permissions import IsAdminOrManagerOrReadOnly
 
 
 class CategoryViewSet(ModelViewSet):

@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from customers.models import Customer
 from customers.serializers import CustomerSerializer
-from users.permissions import IsAdminManagerOrCashierForCustomer
+from customers.permissions import IsAdminManagerOrCashierForCustomer
 
 
 class CustomerViewSet(ModelViewSet):
