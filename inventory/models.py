@@ -9,6 +9,7 @@ class StockMovement(models.Model):
         ("adjustment_in", "Adjustment In"),
         ("adjustment_out", "Adjustment Out"),
         ("return", "Return"),
+        ("supplier_return", "Supplier Return"),
     ]
 
     product = models.ForeignKey(

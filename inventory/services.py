@@ -5,7 +5,7 @@ from product.models import Product
 
 
 INCREASE_TYPES = {"purchase", "return", "adjustment_in"}
-DECREASE_TYPES = {"sale", "adjustment_out"}
+DECREASE_TYPES = {"sale", "adjustment_out", "supplier_return"}
 
 VALID_MOVEMENT_TYPES = INCREASE_TYPES | DECREASE_TYPES
 

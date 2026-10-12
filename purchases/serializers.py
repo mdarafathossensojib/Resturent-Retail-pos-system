@@ -1,8 +1,10 @@
 from decimal import Decimal
 from django.db import transaction
 from rest_framework import serializers
-from purchases.models import Purchase, PurchaseItem
+from purchases.models import Purchase, PurchaseItem, SupplierReturn, SupplierReturnItem
 from inventory.services import adjust_stock
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.db.models import Sum
 
 
 class PurchaseItemSerializer(serializers.ModelSerializer):
@@ -30,6 +32,11 @@ class PurchaseItemSerializer(serializers.ModelSerializer):
                 "Cost price cannot be negative."
             )
         return value
+
+    def update(self, instance, validated_data):
+        raise serializers.ValidationError(
+            "Purchase items cannot be edited after creation."
+        )
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
@@ -114,3 +121,147 @@ class PurchaseSerializer(serializers.ModelSerializer):
         )
 
 
+class SupplierReturnItemInputSerializer(serializers.Serializer):
+    purchase_item = serializers.PrimaryKeyRelatedField(
+        queryset=PurchaseItem.objects.all()
+    )
+    quantity = serializers.IntegerField(min_value=1)
+
+
+class SupplierReturnSerializer(serializers.ModelSerializer):
+    items = SupplierReturnItemInputSerializer(many=True)
+
+    class Meta:
+        model = SupplierReturn
+        fields = [
+            "id",
+            "purchase",
+            "created_by",
+            "total_amount",
+            "items",
+            "created_at",
+        ]
+        read_only_fields = [
+            "id",
+            "purchase",
+            "created_by",
+            "total_amount",
+            "created_at",
+        ]
+
+    def validate_items(self, items):
+        if not items:
+            raise serializers.ValidationError(
+                "At least one supplier return item is required."
+            )
+
+        purchase = self.context["purchase"]
+        seen = set()
+
+        for item in items:
+            purchase_item = item["purchase_item"]
+            quantity = item["quantity"]
+
+            if purchase_item.purchase_id != purchase.pk:
+                raise serializers.ValidationError(
+                    "A returned item does not belong to this purchase."
+                )
+
+            if purchase_item.pk in seen:
+                raise serializers.ValidationError(
+                    "Do not submit the same purchase item more than once."
+                )
+            seen.add(purchase_item.pk)
+
+            already_returned = (
+                SupplierReturnItem.objects.filter(
+                    purchase_item=purchase_item
+                ).aggregate(total=Sum("quantity"))["total"]
+                or 0
+            )
+
+            remaining = purchase_item.quantity - already_returned
+
+            if quantity > remaining:
+                raise serializers.ValidationError(
+                    f"Purchase item #{purchase_item.pk}: "
+                    f"only {remaining} unit(s) can still be returned."
+                )
+
+        return items
+
+    @transaction.atomic
+    def create(self, validated_data):
+        items_data = validated_data.pop("items")
+        purchase = self.context["purchase"]
+        request = self.context["request"]
+
+        supplier_return = SupplierReturn.objects.create(
+            purchase=purchase,
+            created_by=request.user,
+            total_amount=0,
+        )
+
+        total = 0
+
+        for item_data in items_data:
+            purchase_item = PurchaseItem.objects.select_for_update().get(
+                pk=item_data["purchase_item"].pk,
+                purchase=purchase,
+            )
+            quantity = item_data["quantity"]
+
+            already_returned = (
+                SupplierReturnItem.objects.filter(
+                    purchase_item=purchase_item
+                ).aggregate(total=Sum("quantity"))["total"]
+                or 0
+            )
+
+            remaining = purchase_item.quantity - already_returned
+
+            if quantity > remaining:
+                raise serializers.ValidationError({
+                    "items": (
+                        f"Purchase item #{purchase_item.pk} has only "
+                        f"{remaining} unit(s) remaining for return."
+                    )
+                })
+
+            subtotal = purchase_item.cost_price * quantity
+
+            SupplierReturnItem.objects.create(
+                supplier_return=supplier_return,
+                purchase_item=purchase_item,
+                quantity=quantity,
+                cost_price=purchase_item.cost_price,
+                subtotal=subtotal,
+            )
+
+            try:
+                adjust_stock(
+                    product_id=purchase_item.product_id,
+                    movement_type="supplier_return",
+                    quantity=quantity,
+                    note=(
+                        f"Supplier return #{supplier_return.pk}, "
+                        f"purchase #{purchase.pk}"
+                    ),
+                )
+            except DjangoValidationError as exc:
+                raise serializers.ValidationError({
+                    "items": exc.messages
+                }) from exc
+
+            total += subtotal
+
+        supplier_return.total_amount = total
+        supplier_return.save(update_fields=["total_amount"])
+
+        return supplier_return
+
+    def update(self, instance, validated_data):
+        raise serializers.ValidationError(
+            "Supplier returns cannot be edited. Create a separate return "
+            "record if another return is needed."
+        )
