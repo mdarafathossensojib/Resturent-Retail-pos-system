@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +16,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".vercel.app", '127.0.0.1']
 AUTH_USER_MODEL = 'users.User'
 
 
@@ -28,6 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'drf_yasg',
+    'django_filters',
     'rest_framework',
     'djoser',
     'rest_framework_simplejwt',
@@ -52,6 +56,7 @@ INTERNAL_IPS = [
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -81,11 +86,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'retail_pos.wsgi.application'
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-#     "https://classic-fitness-ui-git-main-md-arafat-hossens-projects.vercel.app",
-#     'https://classic-fitness-ui.vercel.app',
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://classic-fitness-ui-git-main-md-arafat-hossens-projects.vercel.app",
+    'https://classic-fitness-ui.vercel.app',
+]
 
 
 
@@ -149,14 +154,16 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
-# #Cloudinary Storage for Image
-# cloudinary.config( 
-#     cloud_name = config('cloud_api_name'), 
-#     api_key = config('cloud_api_key'), 
-#     api_secret = config('cloud_api_secret'),
-#     secure=True
-# )
+#Cloudinary Storage for Image
+cloudinary.config( 
+    cloud_name = config('cloud_api_name'), 
+    api_key = config('cloud_api_key'), 
+    api_secret = config('cloud_api_secret'),
+    secure=True
+)
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
