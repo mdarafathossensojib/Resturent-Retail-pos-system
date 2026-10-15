@@ -8,11 +8,13 @@ from purchases.views import PurchaseItemViewSet, PurchaseViewSet
 from sales.views import SaleItemViewSet, SaleViewSet
 from suppliers.views import SupplierViewSet
 from users.views import UserViewSet
+from reports.views import ReportViewSet
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
 router.register('customers', CustomerViewSet, basename='customer')
 router.register('suppliers', SupplierViewSet, basename='supplier')
+router.register('reports', ReportViewSet, basename='report')
 router.register('categories', CategoryViewSet, basename='category')
 router.register('products', ProductViewSet, basename='product')
 router.register('inventory', StockMovementViewSet, basename='stock-movement')
