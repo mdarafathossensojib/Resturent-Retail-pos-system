@@ -23,6 +23,7 @@ AUTH_USER_MODEL = 'users.User'
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -183,7 +185,7 @@ SIMPLE_JWT = {
 DJOSER = {
     'EMAIL_FRONTEND_PROTOCOL': config('FRONTEND_PROTOCOL'),
     'EMAIL_FRONTEND_DOMAIN': config('FRONTEND_DOMAIN'),
-    'EMAIL_FRONTEND_SITE_NAME': 'Resturant POS',
+    'EMAIL_FRONTEND_SITE_NAME': 'ResturantPOS',
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
