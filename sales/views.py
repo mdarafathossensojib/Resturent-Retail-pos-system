@@ -26,6 +26,15 @@ class SaleViewSet(ModelViewSet):
     permission_classes = [IsAdminManagerOrCashierForSales]
     http_method_names = ["get", "post", "head", "options"]
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        customer_id = self.request.query_params.get("customer")
+
+        if customer_id:
+            queryset = queryset.filter(customer_id=customer_id)
+
+        return queryset
+
     
     @action(
         detail=True,
