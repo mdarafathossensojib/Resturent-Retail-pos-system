@@ -4,10 +4,11 @@ from product.models import Category, Product
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    product_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Category
-        fields = ['id', 'name', 'description']
-        read_only_fields = ['id']
+        fields = ['id', 'name', 'description', 'product_count']
+        read_only_fields = ['id', "product_count"]
 
 
 class ProductSerializer(serializers.ModelSerializer):

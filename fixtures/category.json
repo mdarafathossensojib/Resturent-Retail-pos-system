@@ -1,72 +1,83 @@
+
 [
     {
         "model": "product.category",
         "pk": 1,
         "fields": {
-            "name": "Burger"
+            "name": "Burger",
+            "description": "Delicious burgers made with fresh ingredients, juicy patties, and flavorful toppings."
         }
     },
     {
         "model": "product.category",
         "pk": 2,
         "fields": {
-            "name": "Pizza"
+            "name": "Pizza",
+            "description": "Freshly prepared pizzas topped with cheese, savory sauces, and a variety of delicious toppings."
         }
     },
     {
         "model": "product.category",
         "pk": 3,
         "fields": {
-            "name": "Drink"
+            "name": "Drink",
+            "description": "A selection of refreshing beverages to complement meals and satisfy thirst."
         }
     },
     {
         "model": "product.category",
         "pk": 4,
         "fields": {
-            "name": "Dessert"
+            "name": "Dessert",
+            "description": "Sweet treats and delightful desserts perfect for enjoying after a meal or anytime."
         }
     },
     {
         "model": "product.category",
         "pk": 5,
         "fields": {
-            "name": "Combo Meal"
+            "name": "Combo Meal",
+            "description": "Value-packed meal combinations featuring popular food items and complementary beverages."
         }
     },
     {
         "model": "product.category",
         "pk": 6,
         "fields": {
-            "name": "Pasta"
+            "name": "Pasta",
+            "description": "Flavorful pasta dishes prepared with delicious sauces, seasonings, and fresh ingredients."
         }
     },
     {
         "model": "product.category",
         "pk": 7,
         "fields": {
-            "name": "Appetizer"
+            "name": "Appetizer",
+            "description": "Tasty starters and light bites served before the main course to begin your meal."
         }
     },
     {
         "model": "product.category",
         "pk": 8,
         "fields": {
-            "name": "Coffee"
+            "name": "Coffee",
+            "description": "A variety of aromatic coffee beverages, perfect for a refreshing break or an energy boost."
         }
     },
     {
         "model": "product.category",
         "pk": 9,
         "fields": {
-            "name": "Tea"
+            "name": "Tea",
+            "description": "A comforting selection of hot and refreshing tea beverages for every occasion."
         }
     },
     {
         "model": "product.category",
         "pk": 10,
         "fields": {
-            "name": "Juice"
+            "name": "Juice",
+            "description": "Refreshing fruit juices offering delicious flavors to enjoy with meals or on their own."
         }
     }
 ]
