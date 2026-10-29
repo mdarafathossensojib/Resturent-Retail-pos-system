@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -19,11 +20,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default=0)
     low_stock_threshold = models.PositiveIntegerField(default=10)
 
-    image = models.ImageField(
-        upload_to="products/",
-        blank=True,
-        null=True
-    )
+    image = CloudinaryField('Products', blank=True, null=True)
     image_url = models.URLField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
