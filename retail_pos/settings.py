@@ -90,8 +90,7 @@ WSGI_APPLICATION = 'retail_pos.wsgi.app'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://classic-fitness-ui-git-main-md-arafat-hossens-projects.vercel.app",
-    'https://classic-fitness-ui.vercel.app',
+    "https://resturent-retail-pos-system-ui-nine.vercel.app",
     "http://localhost:3000",
 ]
 
