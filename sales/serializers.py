@@ -90,10 +90,10 @@ class SaleSerializer(serializers.ModelSerializer):
         items_data = validated_data.pop("items")
         request = self.context["request"]
 
-        discount = validated_data.get(
+        discount = validated_data.pop(
             "discount_amount", Decimal("0.00")
         )
-        tax = validated_data.get(
+        tax = validated_data.pop(
             "tax_amount", Decimal("0.00")
         )
 
