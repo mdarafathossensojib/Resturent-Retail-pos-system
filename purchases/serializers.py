@@ -1,18 +1,33 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.db import transaction
 from rest_framework import serializers
 from purchases.models import Purchase, PurchaseItem, SupplierReturn, SupplierReturnItem
+from product.models import Product
 from inventory.services import adjust_stock
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db.models import Sum
+from product.serializers import ProductSerializer
+
 
 
 class PurchaseItemSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(),
+        required=False,
+        allow_null=True,
+    )
+
+    new_product = ProductSerializer(
+        write_only=True,
+        required=False,
+    )
+
     class Meta:
         model = PurchaseItem
         fields = [
             "id",
             "product",
+            "new_product",
             "quantity",
             "cost_price",
             "subtotal",
@@ -33,6 +48,17 @@ class PurchaseItemSerializer(serializers.ModelSerializer):
             )
         return value
 
+    def validate(self, attrs):
+        product = attrs.get("product")
+        new_product = attrs.get("new_product")
+
+        if bool(product) == bool(new_product):
+            raise serializers.ValidationError(
+                "Provide either an existing product or a new product, not both."
+            )
+
+        return attrs
+
     def update(self, instance, validated_data):
         raise serializers.ValidationError(
             "Purchase items cannot be edited after creation."
@@ -43,7 +69,6 @@ class PurchaseSerializer(serializers.ModelSerializer):
     items = PurchaseItemSerializer(
         many=True,
         source="purchase_items",
-        write_only=False,
     )
 
     class Meta:
@@ -84,9 +109,42 @@ class PurchaseSerializer(serializers.ModelSerializer):
         total = Decimal("0.00")
 
         for item_data in items_data:
-            product = item_data["product"]
             quantity = item_data["quantity"]
             cost_price = item_data["cost_price"]
+
+            # Create a new product or retrieve an existing one.
+            new_product_data = item_data.get("new_product")
+
+            if new_product_data:
+                product = Product.objects.create(
+                    **new_product_data
+                )
+            else:
+                product = Product.objects.select_for_update().get(
+                    pk=item_data["product"].pk
+                )
+
+            # Calculate weighted average cost price.
+            old_stock = product.stock
+            old_cost_price = product.cost_price
+
+            new_stock = old_stock + quantity
+
+            average_cost = (
+                (old_cost_price * old_stock)
+                + (cost_price * quantity)
+            ) / new_stock
+
+            product.cost_price = average_cost.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            product.save(
+                update_fields=["cost_price", "updated_at"]
+            )
+
+            # Create purchase item.
             subtotal = cost_price * quantity
 
             PurchaseItem.objects.create(
@@ -97,6 +155,7 @@ class PurchaseSerializer(serializers.ModelSerializer):
                 subtotal=subtotal,
             )
 
+            # Increase stock.
             adjust_stock(
                 product_id=product.pk,
                 movement_type="purchase",
@@ -116,9 +175,11 @@ class PurchaseSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Purchase items cannot be changed after creation."
             )
+
         raise serializers.ValidationError(
             "Purchases cannot be edited. Create a separate purchase instead."
         )
+
 
 
 class SupplierReturnItemInputSerializer(serializers.Serializer):
