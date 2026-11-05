@@ -86,6 +86,7 @@ class UserCreateSerializer(BaseUserCreateSerializer):
 
 class UserViewSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
+        model = User
         fields = [
             "id",
             "first_name",
@@ -93,6 +94,16 @@ class UserViewSerializer(UserSerializer):
             "email",
             "address",
             "phone_number",
+            "profile_image",
+            "date_of_birth",
+            "gender",
+            "role",
+            "is_staff",
+        ]
+        read_only_fields = [
+            "id",
+            "email",
+            "role",
             "is_staff",
         ]
 
