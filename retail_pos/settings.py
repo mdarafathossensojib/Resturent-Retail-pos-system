@@ -175,11 +175,17 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
 }
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
-   'ACCESS_TOKEN_LIFETIME' : timedelta(days=5)
+   'ACCESS_TOKEN_LIFETIME' : timedelta(days=5),
+   "CHECK_USER_IS_ACTIVE": True,
 }
 
 DJOSER = {
@@ -189,6 +195,11 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'reset-password/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
+
+    'PERMISSIONS': {
+        'user_create': ['users.permissions.IsAdmin'],
+    },
+
     'SERIALIZERS' : {
         'user_create' : 'users.serializers.UserCreateSerializer',
         'current_user': 'users.serializers.UserViewSerializer',
