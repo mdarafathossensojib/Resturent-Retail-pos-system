@@ -6,16 +6,34 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from notifications.models import Notification
 from notifications.serializers import NotificationSerializer
+from notifications.pagination import NotificationPagination
+from rest_framework.exceptions import ValidationError
 
 
 class NotificationViewSet(ReadOnlyModelViewSet):
     serializer_class = NotificationSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = NotificationPagination
 
     def get_queryset(self):
-        return Notification.objects.filter(
+        queryset = Notification.objects.filter(
             recipient=self.request.user
-        ).order_by("-created_at")
+        )
+
+        is_read = self.request.query_params.get("is_read")
+
+        if is_read is not None:
+            if is_read.lower() not in ["true", "false"]:
+                raise ValidationError({
+                    "is_read": "Use true or false."
+                })
+
+            queryset = queryset.filter(
+                is_read=is_read.lower() == "true"
+            )
+
+        return queryset.order_by("-created_at", "-id")
+
 
     @action(detail=False, methods=["get"])
     def unread_count(self, request):

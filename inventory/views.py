@@ -13,7 +13,7 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError, NotFound
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-
+from notifications.services import create_notification, notify_roles
 from inventory.models import StockMovement
 from inventory.serializers import (
     StockMovementSerializer,
@@ -71,10 +71,10 @@ class StockMovementViewSet(ModelViewSet):
         return queryset
 
     @action(
-        detail=False,
-        methods=["post"],
-        url_path="adjust-stock",
-    )
+    detail=False,
+    methods=["post"],
+    url_path="adjust-stock",
+)
     def adjust_stock(self, request):
         serializer = StockAdjustmentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -93,10 +93,45 @@ class StockMovementViewSet(ModelViewSet):
         except DjangoValidationError as exc:
             raise ValidationError({"detail": exc.messages})
 
+        product = movement.product
+
+        action_text = (
+            "increased"
+            if movement.movement_type == "adjustment_in"
+            else "decreased"
+        )
+
+        # Notify other Admins and Managers
+        notify_roles(
+            roles=["admin", "manager"],
+            title="Stock Adjusted",
+            message=(
+                f"Stock of {product.name} has been {action_text} "
+                f"by {movement.quantity}. "
+                f"Current stock: {product.stock}."
+            ),
+            notification_type="stock_adjustment",
+            exclude_users=[request.user],
+        )
+
+        # Notify the user who performed the adjustment
+        create_notification(
+            recipient=request.user,
+            title="Stock Adjustment Successful",
+            message=(
+                f"You have {action_text} the stock of {product.name} "
+                f"by {movement.quantity}. "
+                f"Current stock: {product.stock}."
+            ),
+            notification_type="stock_adjustment",
+        )
+
         return Response(
             StockMovementSerializer(movement).data,
             status=status.HTTP_201_CREATED,
         )
+
+    
 
     @action(
         detail=False,

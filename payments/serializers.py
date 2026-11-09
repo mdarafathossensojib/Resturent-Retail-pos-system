@@ -4,6 +4,7 @@ from django.db.models import Sum
 from rest_framework import serializers
 from payments.models import Payment, SaleRefund
 from sales.models import Sale
+from notifications.services import create_notification, notify_roles
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -95,11 +96,44 @@ class PaymentSerializer(serializers.ModelSerializer):
             amount = received
             change = Decimal("0.00")
 
+        
         validated_data["sale"] = sale
         validated_data["amount"] = amount
         validated_data["change_amount"] = change
 
-        return Payment.objects.create(**validated_data)
+        payment = Payment.objects.create(**validated_data)
+
+        request = self.context["request"]
+
+        # Notify Admin and Manager
+        notify_roles(
+            roles=["admin", "manager"],
+            title="Payment Received",
+            message=(
+                f"Payment received for Sale {sale.invoice_number}. "
+                f"Amount: {payment.amount}, "
+                f"Method: {payment.method}."
+            ),
+            notification_type="payment",
+            related_url=f"/sales/{sale.pk}",
+            exclude_users=[request.user],
+        )
+
+        # Notify the user who received the payment
+        create_notification(
+            recipient=request.user,
+            title="Payment Received Successfully",
+            message=(
+                f"You received a payment for Sale {sale.invoice_number}. "
+                f"Amount: {payment.amount}, "
+                f"Method: {payment.method}."
+            ),
+            notification_type="payment",
+            related_url=f"/sales/{sale.pk}",
+        )
+
+        return payment
+
 
     def update(self, instance, validated_data):
         raise serializers.ValidationError(

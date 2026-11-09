@@ -7,6 +7,7 @@ from inventory.services import adjust_stock
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db.models import Sum
 from product.serializers import ProductSerializer
+from notifications.services import create_notification, notify_roles
 
 
 
@@ -168,6 +169,33 @@ class PurchaseSerializer(serializers.ModelSerializer):
         purchase.total_amount = total
         purchase.save(update_fields=["total_amount"])
 
+        # Notify Admin and Manager
+        notify_roles(
+            roles=["admin", "manager"],
+            title="New Purchase Completed",
+            message=(
+                f"Purchase #{purchase.pk} has been completed. "
+                f"Supplier: {purchase.supplier.name}. "
+                f"Total amount: {purchase.total_amount}."
+            ),
+            notification_type="purchase",
+            related_url=f"/purchases/{purchase.pk}",
+            exclude_users=[request.user],
+        )
+
+        # Notify the user who created the purchase
+        create_notification(
+            recipient=request.user,
+            title="Purchase Completed Successfully",
+            message=(
+                f"Your purchase #{purchase.pk} has been completed. "
+                f"Supplier: {purchase.supplier.name}. "
+                f"Total amount: {purchase.total_amount}."
+            ),
+            notification_type="purchase",
+            related_url=f"/purchases/{purchase.pk}",
+        )
+
         return purchase
 
     def update(self, instance, validated_data):
@@ -319,6 +347,34 @@ class SupplierReturnSerializer(serializers.ModelSerializer):
         supplier_return.total_amount = total
         supplier_return.save(update_fields=["total_amount"])
 
+        # Notify Admin and Manager
+        notify_roles(
+            roles=["admin", "manager"],
+            title="Supplier Return Completed",
+            message=(
+                f"Supplier return #{supplier_return.pk} has been completed. "
+                f"Purchase #{purchase.pk}, "
+                f"Supplier: {purchase.supplier.name}. "
+                f"Total amount: {supplier_return.total_amount}."
+            ),
+            notification_type="supplier_return",
+            related_url=f"/purchases/{purchase.pk}",
+            exclude_users=[request.user],
+        )
+
+        # Notify the user who created the supplier return
+        create_notification(
+            recipient=request.user,
+            title="Supplier Return Completed Successfully",
+            message=(
+                f"Your supplier return #{supplier_return.pk} "
+                f"for Purchase #{purchase.pk} has been completed. "
+                f"Total amount: {supplier_return.total_amount}."
+            ),
+            notification_type="supplier_return",
+            related_url=f"/purchases/{purchase.pk}",
+        )
+
         return supplier_return
 
     def update(self, instance, validated_data):
@@ -326,3 +382,5 @@ class SupplierReturnSerializer(serializers.ModelSerializer):
             "Supplier returns cannot be edited. Create a separate return "
             "record if another return is needed."
         )
+
+

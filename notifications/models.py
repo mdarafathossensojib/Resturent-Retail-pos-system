@@ -8,6 +8,7 @@ class Notification(models.Model):
         SALE = "sale", "Sale"
         PURCHASE = "purchase", "Purchase"
         REFUND = "refund", "Refund"
+        SUPPLIER_RETURN = "supplier_return", "Supplier Return"
         LOW_STOCK = "low_stock", "Low Stock"
         STOCK_ADJUSTMENT = "stock_adjustment", "Stock Adjustment"
         PAYMENT = "payment", "Payment"

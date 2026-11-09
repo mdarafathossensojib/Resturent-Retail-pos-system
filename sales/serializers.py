@@ -6,6 +6,7 @@ from rest_framework import serializers
 from inventory.services import adjust_stock
 from sales.models import Sale, SaleItem
 from product.models import Product
+from notifications.services import create_notification, notify_roles
 
 
 class SaleItemSerializer(serializers.ModelSerializer):
@@ -154,6 +155,29 @@ class SaleSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "items": exc.messages
                 }) from exc
+            
+        # Notify Admin and Manager
+        notify_roles(
+            roles=["admin", "manager"],
+            title="New Sale Completed",
+            message=(
+                f"Sale {sale.invoice_number} has been completed. "
+                f"Total amount: {sale.final_amount}."
+            ),
+            notification_type="sale",
+            exclude_users=[request.user],
+        )
+
+        # Notify the user who created the sale
+        create_notification(
+            recipient=request.user,
+            title="Sale Completed Successfully",
+            message=(
+                f"Your sale {sale.invoice_number} has been completed. "
+                f"Total amount: {sale.final_amount}."
+            ),
+            notification_type="sale",
+        )
 
         return sale
 

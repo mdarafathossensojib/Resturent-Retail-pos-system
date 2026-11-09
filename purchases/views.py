@@ -70,3 +70,4 @@ class PurchaseItemViewSet(ModelViewSet):
     serializer_class = PurchaseItemSerializer
     permission_classes = [IsAuthenticatedReadOnly]
     http_method_names = ["get", "head", "options"]
+

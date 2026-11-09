@@ -13,6 +13,7 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from inventory.services import adjust_stock
+from notifications.services import create_notification, notify_roles
 from django.db.models import Sum
 from decimal import Decimal
 
@@ -128,6 +129,31 @@ class SaleViewSet(ModelViewSet):
 
         sale.status = "refunded"
         sale.save(update_fields=["status"])
+
+        # Notify Admin and Manager
+        notify_roles(
+            roles=["admin", "manager"],
+            title="Sale Refunded",
+            message=(
+                f"Sale {sale.invoice_number} has been refunded. "
+                f"Refund amount: {refund.amount}."
+            ),
+            notification_type="refund",
+            related_url=f"/sales/{sale.id}",
+            exclude_users=[request.user],
+        )
+
+        # Notify the original cashier
+        create_notification(
+            recipient=sale.cashier,
+            title="Your Sale Was Refunded",
+            message=(
+                f"Sale {sale.invoice_number} has been refunded. "
+                f"Refund amount: {refund.amount}."
+            ),
+            notification_type="refund",
+            related_url=f"/sales/{sale.id}",
+        )
 
         return Response(
             {

@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from inventory.models import StockMovement
 from product.models import Product
+from notifications.services import notify_roles
 
 
 INCREASE_TYPES = {"purchase", "return", "adjustment_in"}
@@ -26,6 +27,8 @@ def adjust_stock(product_id, movement_type, quantity, note=""):
             f"Available: {product.stock}, requested: {quantity}."
         )
 
+    previous_stock = product.stock
+
     if movement_type in INCREASE_TYPES:
         product.stock += quantity
     else:
@@ -40,4 +43,19 @@ def adjust_stock(product_id, movement_type, quantity, note=""):
         note=note,
     )
 
+    # Notify Admin and Manager when stock crosses the low-stock threshold.
+    if(previous_stock > product.low_stock_threshold and product.stock <= product.low_stock_threshold):
+        notify_roles(
+            roles=["admin", "manager"],
+            title="Low Stock Alert",
+            message=(
+                f"{product.name} is running low on stock. "
+                f"Current stock: {product.stock}, "
+                f"threshold: {product.low_stock_threshold}."
+            ),
+            notification_type="low_stock",
+        )
+
     return movement
+
+
