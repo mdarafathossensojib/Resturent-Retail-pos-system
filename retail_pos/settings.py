@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'sales',
     'payments',
     'reports',
+    'notifications',
     'debug_toolbar',
 ]
 
