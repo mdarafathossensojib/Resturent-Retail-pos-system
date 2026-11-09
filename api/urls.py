@@ -9,6 +9,7 @@ from sales.views import SaleItemViewSet, SaleViewSet
 from suppliers.views import SupplierViewSet
 from users.views import UserViewSet
 from reports.views import ReportViewSet
+from notifications.views import NotificationViewSet
 
 router = DefaultRouter()
 router.register('users', UserViewSet, basename='user')
@@ -24,6 +25,8 @@ router.register('sales', SaleViewSet, basename='sale')
 router.register('sale-items', SaleItemViewSet, basename='sale-item')
 router.register('payments', PaymentViewSet, basename='payment')
 router.register('sale-refunds', SaleRefundViewSet, basename='sale-refund')
+router.register('notifications', NotificationViewSet, basename='notification')
+
 
 urlpatterns = [
     path('', include(router.urls)),
